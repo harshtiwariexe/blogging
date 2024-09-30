@@ -24,8 +24,8 @@ export default async function PostByTag({ params }: Params) {
 
   return (
     <div className="m-10">
-      <h1 className="text-3xl font-bold mb-6">
-        Posts Tagged with "{params.slug}"
+      <h1 className="text-4xl font-bold mb-6">
+        Posts Tagged with &quot;{params.slug}&quot;
       </h1>
 
       {posts.length === 0 ? (

@@ -7,6 +7,6 @@ interface childrenProp {
   children: React.ReactNode;
 }
 
-export default function ({ children }: childrenProp) {
+export default function ThemeProviderWrapper({ children }: childrenProp) {
   return <ThemeProvider>{children}</ThemeProvider>;
 }
