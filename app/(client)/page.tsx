@@ -4,19 +4,19 @@ import Link from "next/link";
 
 async function getPost() {
   const query = `
-    *[_type=="post"]{
-      title,
-      slug,
-      publishedAt,
-      excerpt,
-      body,
-      tags[]->{
-        _id,
+      *[_type=="post"]{
+        title,
         slug,
-        name
+        publishedAt,
+        excerpt,
+        body,
+        tags[]->{
+          _id,
+          slug,
+          name
+        }
       }
-    }
-  `;
+    `;
 
   try {
     const data = await client.fetch(query);
@@ -33,16 +33,18 @@ export default async function Home() {
   const posts = await getPost();
 
   return (
-    <div>
-      <h1>Posts</h1>
+    <div className="flex flex-col justify-center items-center m-10 ">
+      <h1 className="text-2xl font-bold flex justify-start">Posts</h1>
       {posts.length === 0 ? (
         <p>No posts available.</p>
       ) : (
-        <ul>
+        <ul className="w-[900px] mt-8">
           {posts.map((post: any) => (
-            <li key={post.slug.current}>
+            <li className="m-5" key={post.slug.current}>
               <Link href={`/post/${post.slug.current}`}>
-                <h2>{post.title}</h2>
+                <h2 className="text-xl mt-3 mb-3 font-semibold">
+                  {post.title}
+                </h2>
                 <p>{post.excerpt}</p>
               </Link>
               <div>
@@ -50,7 +52,7 @@ export default async function Home() {
                   <Link
                     key={tag?._id}
                     href={`/tags/${tag?.slug.current}`}
-                    className="mr-2 p-1 rounded-sm text-sm lowercase dark:bg-gray-950 border dark:border-gray-900"
+                    className="mr-2 p-1 rounded-sm text-xs lowercase dark:bg-gray-950 border dark:border-gray-900"
                   >
                     #{tag?.name}
                   </Link>
