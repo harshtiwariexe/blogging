@@ -34,19 +34,21 @@ export default async function Post({ params }: Params) {
   }
 
   return (
-    <div className="flex flex-col mt-20 justify-center items-center">
-      <h1 className="text-4xl font-semibold mb-4">{post[0]?.title}</h1>
+    <div className="flex flex-col mt-10 sm:mt-16 lg:mt-20 justify-center items-center px-4 sm:px-8">
+      <h1 className="text-3xl sm:text-4xl font-semibold mb-4 text-center">
+        {post[0]?.title}
+      </h1>
 
-      <span className="text-xs mb-2">
-        {" "}
-        Published on: {new Date(post[0].publishedAt).toLocaleDateString()}
+      <span className="text-xs sm:text-sm mb-2 text-gray-600">
+        Published on: {new Date(post[0]?.publishedAt).toLocaleDateString()}
       </span>
-      <div className="flex flex-row gap-2">
-        <h3>Tags:</h3>
-        <ul className="flex flex-row gap-3">
+
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+        <h3 className="text-base sm:text-lg">Tags:</h3>
+        <ul className="flex flex-wrap gap-2">
           {post[0]?.tags.map((tag: any) => (
             <li
-              className="mr-2 mb-3 p-1 rounded-sm text-xs lowercase dark:bg-gray-950 border dark:border-gray-900"
+              className="p-1 rounded-sm text-xs sm:text-sm lowercase dark:bg-gray-950 border dark:border-gray-900"
               key={tag._id}
             >
               <a href={`/tags/${tag.slug.current}`}>{tag.name}</a>
@@ -55,7 +57,7 @@ export default async function Post({ params }: Params) {
         </ul>
       </div>
 
-      <div className="w-[900px]">
+      <div className="w-full sm:w-[600px] md:w-[800px] lg:w-[900px]">
         <PortableText value={post[0]?.body} />
       </div>
     </div>

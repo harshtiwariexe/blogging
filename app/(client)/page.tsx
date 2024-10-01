@@ -23,36 +23,37 @@ async function getPost() {
     return data;
   } catch (error) {
     console.error("Error fetching posts:", error);
-    return []; // Return an empty array in case of an error
+    return [];
   }
 }
 
-export const revalidate = 60; // Revalidate data every 60 seconds
+export const revalidate = 60;
 
 export default async function Home() {
   const posts = await getPost();
 
   return (
-    <div className="flex flex-col justify-center items-center m-10 ">
-      <h1 className="text-2xl font-bold flex justify-start">Posts</h1>
+    <div className="flex flex-col justify-center items-center px-4 sm:px-8 lg:px-16 py-10">
+      <h1 className="text-3xl font-bold mb-6 self-start">Posts</h1>
+
       {posts.length === 0 ? (
         <p>No posts available.</p>
       ) : (
-        <ul className="w-[900px] mt-8">
+        <ul className="w-full max-w-3xl mt-6">
           {posts.map((post: any) => (
-            <li className="m-5" key={post.slug.current}>
+            <li className="mb-8" key={post.slug.current}>
               <Link href={`/post/${post.slug.current}`}>
-                <h2 className="text-xl mt-3 mb-3 font-semibold">
+                <h2 className="text-xl sm:text-2xl mt-3 mb-2 font-semibold hover:underline cursor-pointer">
                   {post.title}
                 </h2>
-                <p>{post.excerpt}</p>
+                <p className="text-gray-700">{post.excerpt}</p>
               </Link>
-              <div>
+              <div className="mt-2 flex flex-wrap gap-2">
                 {post?.tags?.map((tag: any) => (
                   <Link
                     key={tag?._id}
                     href={`/tags/${tag?.slug.current}`}
-                    className="mr-2 p-1 rounded-sm text-xs lowercase dark:bg-gray-950 border dark:border-gray-900"
+                    className="p-1 rounded-sm text-xs sm:text-sm lowercase dark:bg-gray-950 border dark:border-gray-900"
                   >
                     #{tag?.name}
                   </Link>
